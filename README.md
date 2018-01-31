@@ -18,7 +18,7 @@ Push commits to the public repo:
 
 git push
 
-#Python stuff
+# Python stuff
 https://learnpythonthehardway.org/book/ex0.html
 
 https://www.codecademy.com/learn/learn-python
