@@ -17,3 +17,10 @@ git commit -m 'description of changes'
 Push commits to the public repo:
 
 git push
+
+#Python stuff
+https://learnpythonthehardway.org/book/ex0.html
+
+https://www.codecademy.com/learn/learn-python
+
+https://djangoforbeginners.com/
