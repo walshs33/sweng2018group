@@ -24,3 +24,18 @@ https://learnpythonthehardway.org/book/ex0.html
 https://www.codecademy.com/learn/learn-python
 
 https://djangoforbeginners.com/
+
+#ToDo
+Login system for Principal Invetigator, Head of School, Faculty Office, HR
+
+(Email/User and password)
+
+Admin (for handover, they authenticate accounts etc)
+
+Working form (stores data for now and identifies who currently needs to sign off on it)
+
+Sign off page (for Head of School, Faculty Office, HR)
+
+Email Notifications
+
+Excel Spreadsheet
