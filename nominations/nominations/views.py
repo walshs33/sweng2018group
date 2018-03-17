@@ -4,13 +4,21 @@ from django.urls import reverse_lazy
 
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.forms import ModelForm
 
 from . models import Post
+from . forms import NominationsForm
 
 def form_submit(request):
 	if request.method == 'POST':
-		return request.POST
-	return render(request, 'post_new.html', {'form': Post})
+		print(request.POST)
+		form = NominationsForm(data=request.POST)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('/post/submit/#success')
+		print(form.errors)
+		return render(request, 'post_new.html', {'form': form,'fields': '__all__'})
+	return render(request, 'post_new.html', {'form': NominationsForm,'fields': '__all__'})
 
 
 class FormListView(ListView):
