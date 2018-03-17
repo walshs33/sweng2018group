@@ -2,7 +2,15 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
+
 from . models import Post
+
+def form_submit(request):
+	if request.method == 'POST':
+		return request.POST
+	return render(request, 'post_new.html', {'form': Post})
 
 
 class FormListView(ListView):

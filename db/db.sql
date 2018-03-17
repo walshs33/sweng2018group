@@ -116,6 +116,45 @@ LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
+
+CREATE TABLE `nominations_post` (
+	`id` int NOT NULL AUTO_INCREMENT,
+	`additional_comments` text NULL,
+	`additional_remuneration` varchar(500) NULL,
+	`annual_leave` int NULL,
+	`commencement_date` date NULL,
+	`contract_type` varchar(16) NULL,
+	`discipline` varchar(1000) NULL,
+	`dob` date NULL,
+	`email` varchar(254) NULL,
+	`first_increment_date` date NULL,
+	`first_name` varchar(100) NULL,
+	`gender` varchar(100) NULL,
+	`grant_source` smallint NULL,
+	`home_address` varchar(200) NULL,
+	`hours_per_week` smallint NULL,
+	`increment_amount` smallint NULL,
+	`is_NWA` bool NULL,
+	`is_new_work_group` bool NULL,
+	`is_permit_required` bool NULL,
+	`nationality` varchar(100) NULL,
+	`new_or_replacement` varchar(11) NULL,
+	`phone_number` varchar(20) NULL,
+	`post_title` varchar(100) NULL,
+	`principal_investigator` varchar(100) NULL,
+	`project_title` varchar(100) NULL,
+	`qual_awarding_body` varchar(100) NULL,
+	`qual_title` varchar(100) NULL,
+	`salary` int NULL,
+	`school` varchar(100) NULL,
+	`surname` varchar(100) NULL,
+	`termination_date` date NULL,
+	`work_group_owner` varchar(100) NULL,
+	`work_group_title` varchar(100) NULL,
+	`title` varchar(4) NULL,
+	PRIMARY KEY (`id`)
+	);
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

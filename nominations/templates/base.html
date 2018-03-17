@@ -1,7 +1,7 @@
 {% load staticfiles %}
 <html>
   <head>
-    <title>Django Form</title>
+    <title>TCD Research Nominations</title>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
   </head>
@@ -9,10 +9,10 @@
     <div class="container">
       <header>
         <div class="nav-left">
-          <h1><a href="/">Django Form</a></h1>
+          <h1><a href="/">TCD Research Nominations</a></h1>
         </div>
         <div class="nav-right">
-          <a href="{% url 'post_new' %}">+ New Form Post</a>
+          <a href="{% url 'post_new' %}">+ New Nomination Form</a>
         </div>
       </header>
       {% block content %}
