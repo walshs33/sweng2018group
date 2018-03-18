@@ -155,6 +155,19 @@ CREATE TABLE `nominations_post` (
 	PRIMARY KEY (`id`)
 	);
 
+
+
+CREATE TABLE `nominations_profile` (
+	`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	`first_name` varchar(30) NOT NULL,
+	`last_name` varchar(30) NOT NULL, `email` varchar(254) NOT NULL,
+	`public_key` text NOT NULL,
+	`private_key` text NOT NULL, 
+	`user_id` integer NOT NULL UNIQUE
+);
+ALTER TABLE `nominations_profile` ADD CONSTRAINT `nominations_profile_user_id_c447ac13_fk_auth_user_id` 
+	FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
