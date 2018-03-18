@@ -25,6 +25,22 @@ https://www.codecademy.com/learn/learn-python
 
 https://djangoforbeginners.com/
 
+# Setup
+
+pip install django mysqlclient
+
+apt-get install mariadb
+
+Create a new mysql user and database
+
+Add mysql credentials to settings.py
+
+To import db: mysql -u username -p dbname < db/db.sql
+
+To add admin: python manage.py createsuperuser
+
+To run server: python manage.py runserver
+
 # ToDo
 Login system for Principal Invetigator, Head of School, Faculty Office, HR
 
