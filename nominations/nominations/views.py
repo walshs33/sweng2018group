@@ -10,6 +10,9 @@ from . models import Post
 from . forms import NominationsForm
 
 def form_submit(request):
+	#must be logged in to submit a form
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect('/login/#notloggedin')
 	if request.method == 'POST':
 		print(request.POST)
 		form = NominationsForm(data=request.POST)
@@ -25,17 +28,9 @@ class FormListView(ListView):
     model = Post
     template_name = 'home.html'
 
-
 class FormDetailView(DetailView):
     model = Post
     template_name = 'post_detail.html'
-
-
-class FormCreateView(CreateView):
-    model = Post
-    template_name = 'post_new.html'
-    fields = '__all__'
-
 
 class FormUpdateView(UpdateView):
     model = Post
