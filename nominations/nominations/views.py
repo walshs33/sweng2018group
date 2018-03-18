@@ -24,34 +24,42 @@ def form_submit(request):
 	return render(request, 'post_new.html', {'form': NominationsForm,'fields': '__all__'})
 
 def signup(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            return redirect('home')
-    else:
-        form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+	if request.method == 'POST':
+		print(request.POST)
+		form = SignUpForm(request.POST)
+		if form.is_valid():
+			user = form.save()
+			user.refresh_from_db()
+			user.profile.first_name = form.cleaned_data.get('first_name')
+			user.profile.last_name = form.cleaned_data.get('last_name')
+			user.profile.email = form.cleaned_data.get('email')
+			user.profile.public_key = form.cleaned_data.get('public_key')
+			user.profile.private_key = form.cleaned_data.get('private_key')
+			user.save()
+			username = form.cleaned_data.get('username')
+			raw_password = form.cleaned_data.get('password1')
+			user = authenticate(username=username, password=raw_password)
+			login(request, user)
+			return redirect('home')
+	else:
+		form = SignUpForm()
+	return render(request, 'signup.html', {'form': form})
 
 class FormListView(ListView):
-    model = Post
-    template_name = 'home.html'
+	model = Post
+	template_name = 'home.html'
 
 class FormDetailView(DetailView):
-    model = Post
-    template_name = 'post_detail.html'
+	model = Post
+	template_name = 'post_detail.html'
 
 class FormUpdateView(UpdateView):
-    model = Post
-    fields = '__all__'
-    template_name = 'post_edit.html'
+	model = Post
+	fields = '__all__'
+	template_name = 'post_edit.html'
 
 
 class FormDeleteView(DeleteView):
-    model = Post
-    template_name = 'post_delete.html'
-    success_url = reverse_lazy('home')
+	model = Post
+	template_name = 'post_delete.html'
+	success_url = reverse_lazy('home')

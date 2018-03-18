@@ -1,10 +1,63 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign up</button>
-  </form>
+	<script>
+	// TODO:	ensure password1 matched password2 and is a valid password
+	//			ensure first name, last name and email are valid
+	var genKeys = function(firstname,lastname,email,passphrase) {
+		if(passphrase !== document.forms['signup_form'].elements["password2"].value){
+			document.getElementById("key_gen_message").innerHTML = "Passwords don't match! Fix this and try Generate Keys again";
+			return;
+		}
+		if(passphrase=='' || firstname=='' || lastname=='' || document.forms['signup_form'].elements["username"].value==''){
+			document.getElementById("key_gen_message").innerHTML = "All fields are required! Fix this and try Generate Keys again";
+			return;
+		}
+		document.getElementById("key_gen_message").innerHTML = "Key generation started, this may take a while please wait.";
+		var F = kbpgp["const"].openpgp;
+		var opts = {
+			userid: firstname.concat(" ",lastname," <",email,">"),
+			//userid: "User McTester <user@example.com>",
+			primary: {
+			nbits: 4096,
+			flags: F.certify_keys | F.sign_data | F.auth | F.encrypt_comm | F.encrypt_storage,
+			expire_in: 0  // never expire
+			},
+			subkeys: [
+			{ nbits: 2048,flags: F.sign_data,expire_in: 0}, {
+			  nbits: 2048,flags: F.encrypt_comm | F.encrypt_storage,expire_in: 0}
+			]
+		};
+		kbpgp.KeyManager.generate(opts, function(err, alice) {
+			if (!err) {
+			// sign alice's subkeys
+			alice.sign({}, function(err) {
+				console.log(alice);
+				// export demo; dump the private with a passphrase
+				alice.export_pgp_private ({
+					passphrase: passphrase
+					}, function(err, pgp_private) {
+						document.forms['signup_form'].elements["private_key"].value = pgp_private;
+						console.log("private key generated");
+				});
+				alice.export_pgp_public({}, function(err, pgp_public) {
+					document.forms['signup_form'].elements["public_key"].value = pgp_public;
+					console.log("public key generated");
+					document.forms['signup_form'].elements["submit_button"].removeAttribute("disabled");
+					document.getElementById("key_gen_message").innerHTML = "Key generation complete, you may now click \"Sign Up\"";
+				});
+			});
+			}
+		});
+	};
+	//myKeys = genKeys("kek","lastkek","lol@lol.com","123");
+	</script>
+	<h2>Sign up</h2>
+	<form id="signup_form" method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="button" onclick="genKeys(this.form.elements['first_name'].value,this.form.elements['last_name'].value,this.form.elements['email'].value,this.form.elements['password1'].value);">Generate Keys</button>
+		<button type="submit" name="submit_button" disabled>Sign up</button>
+	</form>
+	<p id="key_gen_message">Please click Generate Keys to generate your encryption keys. These are used to encrypt form data</p>
 {% endblock %}
