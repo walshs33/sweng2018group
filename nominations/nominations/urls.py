@@ -18,5 +18,6 @@ urlpatterns = [
 	url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
     url(r'^logout/$', auth_views.logout, {'template_name': 'logged_out.html'}, name='logout'),
 	url(r'^signup/$', views.signup, name='signup'),
-	url('^pubkey/(?P<user_id>\d+)/$',views.get_public_key, name='public_key')
+	url('^pubkey/(?P<user_id>\d+)/$',views.get_public_key, name='public_key'),
+	url(r'^privkey/$', views.get_private_key, name='private_key'),
 ]

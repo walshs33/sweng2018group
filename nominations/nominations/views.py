@@ -27,14 +27,19 @@ def get_public_key(request, user_id):
 	if not request.user.is_authenticated:
 		return redirect('/login/#notloggedin')
 	try:
-		user = Profile.objects.get(id=user_id)
+		user = Profile.objects.get(user_id=user_id)
 		return HttpResponse(user.public_key)
 	except:
 		return HttpResponse('invalid')
 
+def get_private_key(request):
+	#you can only get your own private key!
+	if not request.user.is_authenticated:
+		return redirect('/login/#notloggedin')
+	return HttpResponse(Profile.objects.get(user_id=request.user.id).private_key)
+
 def signup(request):
 	if request.method == 'POST':
-		print(request.POST)
 		form = SignUpForm(request.POST)
 		if form.is_valid():
 			user = form.save()
