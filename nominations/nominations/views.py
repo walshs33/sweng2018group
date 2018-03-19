@@ -1,12 +1,12 @@
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.forms import ModelForm
 from django.contrib.auth import login, authenticate
 
-from . models import Post
+from . models import *
 from . forms import *
 
 def form_submit(request):
@@ -22,6 +22,15 @@ def form_submit(request):
 		print(form.errors)
 		return render(request, 'post_new.html', {'form': form,'fields': '__all__'})
 	return render(request, 'post_new.html', {'form': NominationsForm,'fields': '__all__'})
+
+def get_public_key(request, user_id):
+	if not request.user.is_authenticated:
+		return redirect('/login/#notloggedin')
+	try:
+		user = Profile.objects.get(id=user_id)
+		return HttpResponse(user.public_key)
+	except:
+		return HttpResponse('invalid')
 
 def signup(request):
 	if request.method == 'POST':
