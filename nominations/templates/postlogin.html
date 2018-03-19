@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Post-Login{% endblock %}
+
+{% block content %}
+  <h2>You will be redirected shortly...</h2>
+  <script>
+  	// STEPS:
+	// fetch key
+	// store key in localstorage
+	// redirect
+	function loadDoc(){
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				priv_key = this.responseText;
+				localStorage.setItem("privatekey",priv_key);
+				window.location.replace('/');
+			}
+		};
+		// send data to server
+		xhttp.open("GET", "/privkey/", true);
+		xhttp.send();
+	}
+	loadDoc();
+  </script>
+{% endblock %}

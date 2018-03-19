@@ -38,6 +38,11 @@ def get_private_key(request):
 		return redirect('/login/#notloggedin')
 	return HttpResponse(Profile.objects.get(user_id=request.user.id).private_key)
 
+def post_login(request):
+	if not request.user.is_authenticated:
+		return redirect('/login/#notloggedin')
+	return render(request,'postlogin.html')
+
 def signup(request):
 	if request.method == 'POST':
 		form = SignUpForm(request.POST)
