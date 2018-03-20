@@ -29,7 +29,7 @@ https://djangoforbeginners.com/
 
 pip install django mysqlclient
 
-apt-get install mariadb
+apt-get install mariadb libmysqlclient-dev
 
 Create a new mysql user and database
 
