@@ -3,6 +3,10 @@
 {% block title %}Thank you!{% endblock %}
 
 {% block content %}
+	<script>
+	localStorage.removeItem('privatekey');
+	localStorage.removeItem('password');
+	</script>
   <h2>Logged out</h2>
   <p>You have been successfully logged out.</p>
   <p><a href="{% url 'login' %}">Log in</a> again.</p>
