@@ -32,7 +32,10 @@ pip install django mysqlclient
 apt-get install mariadb libmysqlclient-dev
 
 Create a new mysql user and database
-
+```
+CREATE database nominations;
+GRANT ALL PRIVILEGES ON nominations.* TO 'nomination'@'localhost' IDENTIFIED BY 'n0m1nationzZ10101';(edited)
+```
 Add mysql credentials to settings.py
 
 To import db: mysql -u username -p dbname < db/db.sql
