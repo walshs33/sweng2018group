@@ -45,24 +45,24 @@ To add admin: python manage.py createsuperuser
 To run server: python manage.py runserver
 
 # ToDo
-Registration - PGP key generation and field for what group user is in
+High - Registration - PGP key generation and field for what group user is in
 
-Admin must approve of registrations
+Mid - Admin must approve of registrations
 
-Change password - key passphrase must also be changed, key does not have to be revoked
+Low - Change password - key passphrase must also be changed, key does not have to be revoked
 
-Login system for Principal Investigator, Head of School, Faculty Office, HR		(mostly there using Django auth system)
+DONE - Login system for Principal Investigator, Head of School, Faculty Office, HR		(mostly there using Django auth system)
 
-Admin (for handover, they authenticate accounts etc)	(functionality should be added to admin panel it's at /admin/ )
+Mid - Admin (for handover, they authenticate accounts etc)	(functionality should be added to admin panel it's at /admin/ )
 
-Form:
+High - Form:
 
 	Stores data, this needs to be encrypted
 
 	Needs to be able to identify relevant parties and notify them
 
-Sign off page (for Head of School, Faculty Office, HR)
+High - Sign off page (for Head of School, Faculty Office, HR)
 
-Email Notifications
+Low - Email Notifications
 
-Excel Spreadsheet
+Low - Excel Spreadsheet
