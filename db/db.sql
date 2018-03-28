@@ -23,10 +23,11 @@ DROP TABLE IF EXISTS `depts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `depts` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
-  `name` varchar(12) DEFAULT NULL,
+  `id` int(1) NOT NULL AUTO_INCREMENT,
+  `faculty` varchar(100) DEFAULT NULL,
+  `school` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,6 +36,9 @@ CREATE TABLE `depts` (
 
 LOCK TABLES `depts` WRITE;
 /*!40000 ALTER TABLE `depts` DISABLE KEYS */;
+INSERT INTO `depts` VALUES (1,'Faculty of Engineering Mathematics and Science','Office'),
+(2,'Faculty of Engineering Mathematics and Science','School of Computer Science'),
+(3,'Human Resources','Office');
 /*!40000 ALTER TABLE `depts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,7 +87,7 @@ CREATE TABLE `ranks` (
 
 LOCK TABLES `ranks` WRITE;
 /*!40000 ALTER TABLE `ranks` DISABLE KEYS */;
-INSERT INTO `ranks` VALUES (1,'researcher'),(2,'head of scho'),(3,'dean'),(4,'human resour');
+INSERT INTO `ranks` VALUES (1,'Researcher/PI'),(2,'School Office'),(3,'Faculty Office'),(4,'Human Resources');
 /*!40000 ALTER TABLE `ranks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,11 +167,16 @@ CREATE TABLE `nominations_profile` (
 	`last_name` varchar(30) NOT NULL, `email` varchar(254) NOT NULL,
 	`public_key` text NOT NULL,
 	`private_key` text NOT NULL,
+	`rank_id`	integer NOT NULL,
+	`dept_id` integer NOT NULL,
 	`user_id` integer NOT NULL UNIQUE
 );
 ALTER TABLE `nominations_profile` ADD CONSTRAINT `nominations_profile_user_id_c447ac13_fk_auth_user_id`
 	FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
-
+ALTER TABLE `nominations_profile` ADD CONSTRAINT `nominations_profile_user_id_c447ac13_fk_auth_rank_id`
+    FOREIGN KEY (`rank_id`) REFERENCES `ranks` (`id`);
+ALTER TABLE `nominations_profile` ADD CONSTRAINT `nominations_profile_user_id_c447ac13_fk_auth_dept_id`
+    FOREIGN KEY (`dept_id`) REFERENCES `depts` (`id`);
 
 CREATE TABLE `auth_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
