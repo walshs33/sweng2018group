@@ -34,7 +34,7 @@ apt-get install mariadb libmysqlclient-dev
 Create a new mysql user and database
 ```
 CREATE database nominations;
-GRANT ALL PRIVILEGES ON nominations.* TO 'nomination'@'localhost' IDENTIFIED BY 'n0m1nationzZ10101';(edited)
+GRANT ALL PRIVILEGES ON nominations.* TO 'nomination'@'localhost' IDENTIFIED BY 'n0m1nationzZ10101';
 ```
 Add mysql credentials to settings.py
 
