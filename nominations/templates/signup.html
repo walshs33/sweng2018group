@@ -10,7 +10,7 @@
 			return;
 		}
 		if(passphrase=='' || firstname=='' || lastname=='' || document.forms['signup_form'].elements["username"].value==''){
-			document.getElementById("key_gen_message").innerHTML = "All fields are required! Fix this and try Generate Keys again";
+			document.getElementById("key_gen_message").innerHTML = "All fields are required! Fix this and click Sign Up again";
 			return;
 		}
 		document.getElementById("key_gen_message").innerHTML = "Key generation started, this may take a while please wait.";
@@ -43,8 +43,9 @@
 				alice.export_pgp_public({}, function(err, pgp_public) {
 					document.forms['signup_form'].elements["public_key"].value = pgp_public;
 					console.log("public key generated");
-					document.forms['signup_form'].elements["submit_button"].removeAttribute("disabled");
-					document.getElementById("key_gen_message").innerHTML = "Key generation complete, you may now click \"Sign Up\"";
+					//document.forms['signup_form'].elements["submit_button"].removeAttribute("disabled");
+					document.getElementById("key_gen_message").innerHTML = "Key generation complete, submitting form...";
+					document.forms['signup_form'].submit();
 				});
 			});
 			}
@@ -56,8 +57,29 @@
 	<form id="signup_form" method="post">
 		{% csrf_token %}
 		{{ form.as_p }}
-		<button type="button" onclick="genKeys(this.form.elements['first_name'].value,this.form.elements['last_name'].value,this.form.elements['email'].value,this.form.elements['password1'].value);">Generate Keys</button>
-		<button type="submit" name="submit_button" disabled>Sign up</button>
+		{{ faculty_form | safe }}
+		<button type="button" onclick="genKeys(this.form.elements['first_name'].value,this.form.elements['last_name'].value,this.form.elements['email'].value,this.form.elements['password1'].value);">Sign Up</button>
 	</form>
-	<p id="key_gen_message">Please click Generate Keys to generate your encryption keys. These are used to encrypt form data</p>
+	<p id="key_gen_message">Please click Sign Up to generate your encryption keys and submit the form. These are keys are used to encrypt form data</p>
+	<script>
+	//This code is for updating the School dropdown box
+	var school_obj = {{ schools_json | safe}}; // format: {'1':[['1','School of X'],['2','School of Y']],'2':[]}
+	document.getElementById('signup_form').faculty_id.onchange = function() {
+		schools = school_obj[document.getElementById('signup_form').faculty_id.value]
+		//first remove all options from list
+		document.getElementById('signup_form').dept_id.innerText = null
+		//next add all relevant schools as options
+		var opt = document.createElement("option");
+		opt.text = "Please select one";
+		opt.value = "0";
+		document.getElementById('signup_form').dept_id.add(opt);
+		for (var i = 0; i < schools.length; i++){
+			opt = document.createElement("option");
+			opt.text = schools[i][1];
+			opt.value = schools[i][0];
+			document.getElementById('signup_form').dept_id.add(opt);
+		}
+
+	};
+	</script>
 {% endblock %}

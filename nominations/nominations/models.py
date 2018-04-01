@@ -11,6 +11,8 @@ class Profile(models.Model):
 	email = models.EmailField(max_length=254, help_text='Required')
 	public_key = models.CharField(max_length=8192)
 	private_key = models.CharField(max_length=8192)
+	rank_id = models.IntegerField()
+	dept_id = models.IntegerField()
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

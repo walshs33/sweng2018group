@@ -21,4 +21,6 @@ urlpatterns = [
 	url('^pubkey/(?P<user_id>\d+)/$',views.get_public_key, name='public_key'),
 	url(r'^privkey/$', views.get_private_key, name='private_key'),
 	url(r'^postlogin/$', views.post_login, name='post_login'),
+	# url(r'^testing/$', views.testing, name='testing')
+	# url(r'^changepass/$', views.changepass, name='changepass')
 ]
