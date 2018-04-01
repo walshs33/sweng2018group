@@ -16,19 +16,40 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `faculties`
+--
+
+DROP TABLE IF EXISTS `faculties`;
+CREATE TABLE `faculties` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `faculties`
+--
+
+LOCK TABLES `faculties` WRITE;
+/*!40000 ALTER TABLE `faculties` DISABLE KEYS */;
+INSERT INTO `faculties` VALUES (1,'Faculty of Engineering Mathematics and Science'),
+(2,'Human Resources');
+/*!40000 ALTER TABLE `faculties` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `depts`
 --
 
 DROP TABLE IF EXISTS `depts`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `depts` (
-  `id` int(1) NOT NULL AUTO_INCREMENT,
-  `faculty` varchar(100) DEFAULT NULL,
-  `school` varchar(100) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `faculty` int NOT NULL,
+  `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+ALTER TABLE `depts` ADD CONSTRAINT `depts_faculty_c447ac13_fk_auth_user_id`
+	FOREIGN KEY (`faculty`) REFERENCES `faculties` (`id`);
 
 --
 -- Dumping data for table `depts`
@@ -36,9 +57,9 @@ CREATE TABLE `depts` (
 
 LOCK TABLES `depts` WRITE;
 /*!40000 ALTER TABLE `depts` DISABLE KEYS */;
-INSERT INTO `depts` VALUES (1,'Faculty of Engineering Mathematics and Science','Office'),
-(2,'Faculty of Engineering Mathematics and Science','School of Computer Science'),
-(3,'Human Resources','Office');
+INSERT INTO `depts` VALUES (1,1,'Office'),
+(2,1,'School of Computer Science'),
+(3,2,'Office');
 /*!40000 ALTER TABLE `depts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -50,7 +71,7 @@ DROP TABLE IF EXISTS `dummy_form`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `dummy_form` (
-  `id` int(8) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `firstname` varchar(20) DEFAULT NULL,
   `surname` varchar(20) DEFAULT NULL,
   `nominater` int(5) DEFAULT NULL,
@@ -76,7 +97,7 @@ DROP TABLE IF EXISTS `ranks`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ranks` (
   `id` int(1) NOT NULL AUTO_INCREMENT,
-  `name` varchar(12) DEFAULT NULL,
+  `name` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -89,36 +110,6 @@ LOCK TABLES `ranks` WRITE;
 /*!40000 ALTER TABLE `ranks` DISABLE KEYS */;
 INSERT INTO `ranks` VALUES (1,'Researcher/PI'),(2,'School Office'),(3,'Faculty Office'),(4,'Human Resources');
 /*!40000 ALTER TABLE `ranks` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `users`
---
-
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) DEFAULT NULL,
-  `password` varchar(20) DEFAULT NULL,
-  `dept` int(3) DEFAULT NULL,
-  `rank` int(1) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `users` (`dept`),
-  KEY `rank` (`rank`),
-  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`dept`) REFERENCES `depts` (`id`),
-  CONSTRAINT `users_ibfk_2` FOREIGN KEY (`rank`) REFERENCES `ranks` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users`
---
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
 CREATE TABLE `nominations_post` (
@@ -157,7 +148,7 @@ CREATE TABLE `nominations_post` (
 	`work_group_title` varchar(100) NULL,
 	`title` varchar(4) NULL,
 	PRIMARY KEY (`id`)
-	);
+);
 
 
 
@@ -167,8 +158,8 @@ CREATE TABLE `nominations_profile` (
 	`last_name` varchar(30) NOT NULL, `email` varchar(254) NOT NULL,
 	`public_key` text NOT NULL,
 	`private_key` text NOT NULL,
-	`rank_id`	integer NOT NULL,
-	`dept_id` integer NOT NULL,
+	`rank_id`	integer DEFAULT 0,
+	`dept_id` integer DEFAULT 0,
 	`user_id` integer NOT NULL UNIQUE
 );
 ALTER TABLE `nominations_profile` ADD CONSTRAINT `nominations_profile_user_id_c447ac13_fk_auth_user_id`
