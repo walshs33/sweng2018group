@@ -12,6 +12,7 @@ from . forms import *
 
 #def testing(request):
 #	return render(request,'testing.html',{'currentuser':request.user.id})
+
 def form_submit(request):
 	#must be logged in to submit a form
 	if not request.user.is_authenticated:
