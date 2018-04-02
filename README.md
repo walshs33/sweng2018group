@@ -45,13 +45,10 @@ To add admin: python manage.py createsuperuser
 To run server: python manage.py runserver
 
 # ToDo
-High - Registration - PGP key generation and field for what group user is in
 
 Mid - Admin must approve of registrations
 
 Low - Change password - key passphrase must also be changed, key does not have to be revoked
-
-DONE - Login system for Principal Investigator, Head of School, Faculty Office, HR		(mostly there using Django auth system)
 
 Mid - Admin (for handover, they authenticate accounts etc)	(functionality should be added to admin panel it's at /admin/ )
 
