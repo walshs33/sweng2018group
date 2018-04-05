@@ -7,7 +7,9 @@
 	localStorage.removeItem('privatekey');
 	localStorage.removeItem('password');
 	</script>
+<div class="container">
   <h2>Logged out</h2>
   <p>You have been successfully logged out.</p>
-  <p><a href="{% url 'login' %}">Log in</a> again.</p>
+  <a href="{% url 'signup' %}" class="btn btn-dark" style="margin:0 auto">Login</a>
+</div>
 {% endblock %}

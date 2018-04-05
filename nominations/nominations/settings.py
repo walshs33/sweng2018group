@@ -31,13 +31,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-	'nominations',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
+    'nominations',
 ]
 
 MIDDLEWARE = [
@@ -78,8 +79,8 @@ DATABASES = {
 	'default':{
 		'ENGINE': 'django.db.backends.mysql',
         'NAME': 'nominations',
-        'USER': 'nomination',
-        'PASSWORD': 'n0m1nationzZ10101',
+        'USER': 'root',
+        'PASSWORD': 'Portmarnock1!',
         'HOST': 'localhost',
         'PORT': '3306',
 		'OPTIONS' : {
@@ -128,7 +129,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 LOGIN_REDIRECT_URL = '/postlogin'

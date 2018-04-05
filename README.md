@@ -29,6 +29,8 @@ https://djangoforbeginners.com/
 
 pip install django mysqlclient
 
+pip install --upgrade django-crispy-forms
+
 apt-get install mariadb libmysqlclient-dev
 
 Create a new mysql user and database

@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 {% block content %}
+
 	<script src="/static/js/sha1.js"></script>
 	<script>
 	// TODO:	ensure password1 matched password2 and is a valid password
 	//			ensure first name, last name and email are valid
+
 	var genKeys = function(firstname,lastname,email,password) {
 		if(password !== document.forms['signup_form'].elements["password2"].value){
 			document.getElementById("key_gen_message").innerHTML = "Passwords don't match! Fix this and try Generate Keys again";
@@ -56,16 +58,23 @@
 		});
 	};
 	//myKeys = genKeys("kek","lastkek","lol@lol.com","123");
+
 	</script>
-	<h2>Sign up</h2>
+<div class="container">
+	<div class="page-header">
+
+	</div>
 	<form id="signup_form" method="post">
 		{% csrf_token %}
-		{{ form.as_p }}
+		{{ form|crispy }}
 		{{ faculty_form | safe }}
-		<button type="button" onclick="genKeys(this.form.elements['first_name'].value,this.form.elements['last_name'].value,this.form.elements['email'].value,this.form.elements['password1'].value);">Sign Up</button>
+		<button type="button" class="btn btn-dark" onclick="genKeys(this.form.elements['first_name'].value,this.form.elements['last_name'].value,this.form.elements['email'].value,this.form.elements['password1'].value);">Sign Up</button>
 	</form>
+	</div>
+
 	<p id="key_gen_message">Please click Sign Up to generate your encryption keys and submit the form. These are keys are used to encrypt form data</p>
 	<script>
+
 	//This code is for updating the School dropdown box
 	var school_obj = {{ schools_json | safe}}; // format: {'1':[['1','School of X'],['2','School of Y']],'2':[]}
 	document.getElementById('signup_form').faculty_id.onchange = function() {

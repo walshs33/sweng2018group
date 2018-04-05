@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 {% block content %}
-    <h1>New post</h1>
 	{% if form.subject.errors %}
 		<ol>
 		{% for error in form.subject.errors %}
@@ -9,8 +8,10 @@
 		{% endfor %}
     	</ol>
 	{% endif %}
+<div class="container">
     <form action="/post/submit/" method="post">{% csrf_token %}
-      {{ form.as_p }}
-      <input type="submit" value="Save" />
+      {{ form|crispy }}
+      <input type="submit" class="btn btn-dark" value="Save" />
     </form>
+</div>
 {% endblock %}
