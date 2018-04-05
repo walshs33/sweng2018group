@@ -29,8 +29,6 @@ https://djangoforbeginners.com/
 
 apt-get update 
 
-pip install --upgrade django-crispy-forms
-
 apt-get install mariadb libmysqlclient-dev
 
 (if maria db is not found use mysql-server instead)
