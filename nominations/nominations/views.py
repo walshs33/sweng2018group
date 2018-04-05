@@ -64,6 +64,7 @@ def signup(request):
 			user.profile.private_key = form.cleaned_data.get('private_key')
 			user.profile.rank_id = form.cleaned_data.get('rank_id')
 			user.profile.dept_id = form.cleaned_data.get('dept_id')
+			user.is_active = False
 			user.save()
 			username = form.cleaned_data.get('username')
 			raw_password = form.cleaned_data.get('password1')
