@@ -27,9 +27,13 @@ https://djangoforbeginners.com/
 
 # Setup
 
-pip install django mysqlclient
+apt-get update 
 
 apt-get install mariadb libmysqlclient-dev
+
+(if maria db is not found use mysql-server instead)
+
+pip install django mysqlclient django-crispy-forms
 
 Create a new mysql user and database
 ```
@@ -45,8 +49,6 @@ To add admin: python manage.py createsuperuser
 To run server: python manage.py runserver
 
 # ToDo
-
-Mid - Admin must approve of registrations
 
 Low - Change password - key passphrase must also be changed, key does not have to be revoked
 
