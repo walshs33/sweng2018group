@@ -3,10 +3,10 @@
 <html>
   <head>
     <title>TCD Research Nominations</title>
-    
+
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    
+
 	  <script src="{% static 'js/kbpgp-2.0.8.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
   </head>
@@ -19,8 +19,6 @@
       <a href="{% url 'logout' %}">Logout</a>
       <a href="{% url 'signup' %}">Register</a>
     </div>
-
-    </nav>
       {% block content %}
       {% endblock content %}
   </body>

@@ -60,21 +60,17 @@
 	//myKeys = genKeys("kek","lastkek","lol@lol.com","123");
 
 	</script>
-<div class="container">
-	<div class="page-header">
-
+	<div class="container">
+		<form id="signup_form" method="post">
+			{% csrf_token %}
+			{{ form|crispy }}
+			{{ faculty_form | safe }}
+			<button type="button" class="btn btn-dark" onclick="genKeys(this.form.elements['first_name'].value,this.form.elements['last_name'].value,this.form.elements['email'].value,this.form.elements['password1'].value);">Sign Up</button>
+		</form>
+		<br><br>
+		<p id="key_gen_message">Please click Sign Up to generate your encryption keys and submit the form. These are keys are used to encrypt form data</p>
 	</div>
-	<form id="signup_form" method="post">
-		{% csrf_token %}
-		{{ form|crispy }}
-		{{ faculty_form | safe }}
-		<button type="button" class="btn btn-dark" onclick="genKeys(this.form.elements['first_name'].value,this.form.elements['last_name'].value,this.form.elements['email'].value,this.form.elements['password1'].value);">Sign Up</button>
-	</form>
-	</div>
-
-	<p id="key_gen_message">Please click Sign Up to generate your encryption keys and submit the form. These are keys are used to encrypt form data</p>
 	<script>
-
 	//This code is for updating the School dropdown box
 	var school_obj = {{ schools_json | safe}}; // format: {'1':[['1','School of X'],['2','School of Y']],'2':[]}
 	document.getElementById('signup_form').faculty_id.onchange = function() {
