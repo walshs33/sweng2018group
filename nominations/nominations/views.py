@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.forms import ModelForm
 from django.contrib.auth import login, authenticate
+from django.conf import settings
 from django.db import connection
 import json
 from . models import *
@@ -53,9 +54,7 @@ def signup(request):
 		rank_id = int(request.POST['rank_id'][0])
 		dept_id = int(request.POST['dept_id'][0])
 		if form.is_valid():
-			print('ayylmao')
 			user = form.save()
-			print('ayylmao2')
 			user.refresh_from_db()
 			user.profile.first_name = form.cleaned_data.get('first_name')
 			user.profile.last_name = form.cleaned_data.get('last_name')
@@ -64,6 +63,8 @@ def signup(request):
 			user.profile.private_key = form.cleaned_data.get('private_key')
 			user.profile.rank_id = form.cleaned_data.get('rank_id')
 			user.profile.dept_id = form.cleaned_data.get('dept_id')
+			if settings.ADMIN_MUST_APPROVE_LOGINS:
+				user.is_active = False
 			user.save()
 			username = form.cleaned_data.get('username')
 			raw_password = form.cleaned_data.get('password1')

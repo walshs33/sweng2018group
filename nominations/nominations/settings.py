@@ -133,3 +133,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 LOGIN_REDIRECT_URL = '/postlogin'
+
+ADMIN_MUST_APPROVE_LOGINS = False
