@@ -8,8 +8,9 @@ from django.db import connection
 class NominationsForm(ModelForm):
 	commencement_date = forms.DateTimeField(input_formats=['%d-%m-%Y','%d/%m/%Y'])
 	first_increment_date = forms.DateTimeField(input_formats=['%d-%m-%Y','%d/%m/%Y'])
-	dob = forms.DateTimeField(input_formats=['%d-%m-%Y','%d/%m/%Y'])
+	dob = forms.DateTimeField(label='Date of Birth',input_formats=['%d-%m-%Y','%d/%m/%Y'])
 	termination_date = forms.DateTimeField(input_formats=['%d-%m-%Y','%d/%m/%Y'])
+	is_NWA = forms.NullBooleanField(label='Should salary increase in line with National Wage Agreements')
 	class Meta:
 		model = Post
 		fields = '__all__'
@@ -28,7 +29,7 @@ class RankWidget(forms.PasswordInput):
 		ranks = cursor.fetchall()
 		for rank in ranks:
 			rank_form += '<option value="%d">%s</option>' % (rank[0],rank[1])
-		rank_form += '</select></p>'
+		rank_form += '</select>'
 		return mark_safe(rank_form)
 
 class DeptWidget(forms.PasswordInput):

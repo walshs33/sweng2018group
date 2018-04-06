@@ -10,8 +10,8 @@ import json
 from . models import *
 from . forms import *
 
-#def testing(request):
-#	return render(request,'testing.html',{'currentuser':request.user.id})
+def testing(request):
+	return render(request,'testing.html',{'currentuser':request.user.id})
 
 def form_submit(request):
 	#must be logged in to submit a form
@@ -74,13 +74,13 @@ def signup(request):
 		form = SignUpForm()
 
 	# generating faculty part of form
-	faculty_form = '<p>Faculty: <select name="faculty_id" form="signup_form"><option value="0">Please select one</option>'
+	faculty_form = '<div id="div_id_faculty_id" class="form-group"> <label for="id_faculty_id" class="col-form-label  requiredField">Faculty: </label><div class=""><select name="faculty_id" form="signup_form"><option value="0">Please select one</option>'
 	cursor = connection.cursor()
 	cursor.execute("SELECT id,name FROM faculties")
 	faculties = cursor.fetchall()
 	for faculty in faculties:
 		faculty_form += '<option value="%d">%s</option>' % (faculty[0],faculty[1])
-	faculty_form += '</select></p>'
+	faculty_form += '</select></div></div><br>'
 
 	#generating schools json
 	cursor.execute("SELECT id,faculty,name FROM depts")
