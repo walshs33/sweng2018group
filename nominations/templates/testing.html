@@ -3,7 +3,7 @@
 {% block title %}Testing{% endblock %}
 
 {% block content %}
-	<h2>Page for Testing</h2>
+	<center><h2>Page for Testing</h2></center>
 	<script>
 	var key_managers = [];
 	function encrypt(){
@@ -112,6 +112,7 @@
         });
     }
 	</script>
+	<div class="container">
 	<h2>Encrypt text</h2>
 	<p><textarea rows="3" id="receipientIDs" placeholder="Write the list of recipients (comma seperated) here. Your ID is: {{ currentuser }}"></textarea></p>
 	<p><textarea rows="7" id="plaintext2encrypt" placeholder="Write your message to encrypt here."></textarea></p>
@@ -122,4 +123,5 @@
 	<p><textarea rows="7" id="ciphertext2decrypt" placeholder="Paste your message to decrypt here."></textarea></p>
 	<p><button type="button" onclick="decrypt()">Decrypt</button></p>
 	<p><textarea rows="7" id="decryptedtext" placeholder="Your decrypted message will appear in plaintext in this box"></textarea></p>
+	<div class="container">
 {% endblock %}

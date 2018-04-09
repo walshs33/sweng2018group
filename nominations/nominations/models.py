@@ -23,6 +23,13 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
+'''
+class EncForm(models.Model):
+	encdata
+	dept_id
+	level
+	submitter
+'''
 class Post(models.Model):
     post_title = models.CharField(max_length=100, null=True)
     gender = models.CharField(max_length=100, null=True)
